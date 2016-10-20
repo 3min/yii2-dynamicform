@@ -175,16 +175,16 @@
         if (count > widgetOptions.min) {
             $todelete = $elem.closest(widgetOptions.widgetItem);
 
-            // trigger a custom event for hooking
+             // trigger a custom event for hooking
             var eventResult = $('.' + widgetOptions.widgetContainer).triggerHandler(events.beforeDelete, $todelete);
-            if (eventResult !== false) {
+            eventResult.done(function () {
                 _removeValidations($todelete, widgetOptions, count);
                 $todelete.remove();
                 _updateAttributes(widgetOptions);
                 _restoreSpecialJs(widgetOptions);
                 _fixFormValidaton(widgetOptions);
                 $('.' + widgetOptions.widgetContainer).triggerHandler(events.afterDelete);
-            }
+            });
         }
     };
 
